@@ -1,0 +1,1 @@
+var distance = window.pageYOffset;

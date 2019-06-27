@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Accordion</title>
+  <style>
+    /**
+     * 1. Styling for Firefox and other non-webkit/blink browsers
+     * 2. Styling for webkit and blink
+     */
+    summary, /* 1 */
+    summary::-webkit-details-marker { /* 2 */
+      list-style-image: url('');
+    }
+  </style>
+</head>
+<body>
+  <details>
+    <summary>The toggle</summary>
+    The content.
+  </details>
+  
+  <details open>
+    <summary>Another toggle</summary>
+    Expanded by default
+  </details>
+</body>
+</html>
