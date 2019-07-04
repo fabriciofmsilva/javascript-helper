@@ -36,3 +36,30 @@ var roundUp = function (num, precision) {
 	if (!precision) return num.toLocaleString();
 	return (Math.ceil(num / precision) * precision).toLocaleString();
 };
+
+
+var roundA = function (num, precision, method) {
+
+	// Convert string numbers to a float
+	num = parseFloat(num);
+
+	// If there's no rounding precision, return the number
+	if (!precision) return num.toLocaleString();
+
+	// Possible methods and their values
+	var methods = {
+		auto: 'round',
+		up: 'ceil',
+		down: 'floor'
+	};
+
+	// Get the method function
+	var fn = methods[method];
+	if (!fn) {
+		fn = 'round';
+	}
+
+	// Do math!
+	return (Math[fn](num / precision) * precision).toLocaleString();
+
+};
