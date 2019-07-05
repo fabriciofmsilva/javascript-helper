@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Disabled Button</title>
+  <style>
+    /**
+     * Disabled state
+     */
+    button.disabled,
+    button[disabled] {
+      box-shadow: none;
+      cursor: not-allowed;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <form id="newsletter">
+    <label for="email">Your Email Address</label>
+    <input type="email" name="email" id="email">
+    <button>Sign Up!</button>
+  </form>
+
+  <script>
+    // Bad
+    // var btn = document.querySelector('#newsletter btn');
+    // btn.setAttribute('disabled', true);
+
+    // Good
+    // 1. Use a .disabled class instead of the [disabled] attribute. This gives you same styling without the loss of focus.
+    // 2. Update the button text to indicate that the form is submitting and should not be clicked again.
+    // 3. Ignore any additional submits until the previous submission is finished.
+    var btn = document.querySelector('#newsletter btn');
+    btn.classList.add('disabled');
+
+    btn.addEventListener('click', function() {
+      // If the form is NOT currently submitting
+      if (!btn.hasAttribute('data-original')) {
+        // Go ahead and submit your API request
+        var btn = document.querySelector('#newsletter btn');
+
+        // Add the .disabled class
+        btn.classList.add('disabled');
+
+        // Store the original text to a data attribute
+        btn.setAttribute('data-original', btn.textContent);
+
+        // Update the button text
+        btn.textContent = 'Signing up...';
+
+        // Restore the button text
+        btn.textContent = btn.getAttribute('data-original');
+
+        // Remove the data attribute
+        btn.removeAttribute('data-original');
+      }
+    }, false);
+  </script>
+</body>
+</html>
