@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Social Sharing</title>
+  <style>
+    body {
+      width: 95%;
+      max-width: 700px;
+      font-family: tahoma, sans-serif;
+      font-size: 14px;
+      line-height: 1.4;
+      padding: 0 10px 20px 10px;
+      margin: 0 auto 0 auto;
+    }
+
+    h1 {
+      font-size: 24px;
+      text-align: center;
+    }
+
+    h1 span {
+      display: block;
+      font-size: 18px;
+      font-weight: normal;
+    }
+
+    code {
+      background-color: #eee;
+      padding: 0 3px 0 3px;
+    }
+
+    .links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px 0;
+    }
+
+    .links li {
+      font-size: 16px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .links li:hover {
+      text-decoration: underline;
+    }
+
+    .notes {
+      width: 100%;
+      margin: 0 0 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Social Media Sharing: Automated Link Creator<span>(Vanilla JavaScript)</span></h1>
+  <div class="links">
+    <ul>
+      <li class="social-share facebook">Share on Facebook</li>
+      <li class="social-share twitter">Share on Twitter</li>
+      <li class="social-share linkedin">Share on LinkedIn</li>
+    </ul>
+  </div>
+  <div class="notes">
+    <p>This sample HTML and JavaScript can be used to create links that share the current page on either Facebook, Twitter, and LinkedIn. Usage notes:</p>
+    <ul>
+      <li><p>Testing this from within CodePen will likely be unsuccessful as the page's META tags are undefined.</p></li>
+      <li><p>The JavaScript function <code>setShareLinks()</code> should be called after the DOM has loaded.</p></li>
+      <li><p>This function creates sharing links on any object in the HTML that has the class <code>social-share</code> and the name of a social media service  see above HTML for an example.</p></li>
+      <li><p>Setting the variable <code>params</code> to an empty string in the JavaScript function <code>socialWindow()</code> will cause these links to launch in a new window or tab rather than a pop-up.</p></li>
+      <li><p><a href="https://codepen.io/adamcoti/pen/jVGWdG" target="_blank">This routine is also available using jQuery</a>.</li>
+    </ul>
+  </div>
+
+  <script>
+    window.onload = setShareLinks;
+
+    function setShareLinks() {
+      var pageUrl = encodeURIComponent(document.URL);
+      var description = document.querySelector("meta[name='description']").getAttribute("content");
+      var description = encodeURIComponent(description);
+
+      elements = document.querySelectorAll(".social-share.facebook");
+      Array.prototype.forEach.call(elements, function(el) {
+        el.addEventListener("click", function() {
+          url = "https://www.facebook.com/sharer.php?u=" + pageUrl;
+          socialWindow(url);
+        });
+      });
+
+      elements = document.querySelectorAll(".social-share.twitter");
+      Array.prototype.forEach.call(elements, function(el) {
+        el.addEventListener("click", function() {
+          url = "https://twitter.com/intent/tweet?url=" + pageUrl + "&text=" + description;
+          socialWindow(url);
+        });
+      });
+
+      elements = document.querySelectorAll(".social-share.linkedin");
+      Array.prototype.forEach.call(elements, function(el) {
+        el.addEventListener("click", function() {
+          url = "https://www.linkedin.com/shareArticle?mini=true&url=" + pageUrl;
+          socialWindow(url);
+        });
+      });
+    };
+
+    function socialWindow(url) {
+      var left = (screen.width - 570) / 2;
+      var top = (screen.height - 570) / 2;
+      var params = "menubar=no,toolbar=no,status=no,width=570,height=570,top=" + top + ",left=" + left;
+      window.open(url,"NewWindow",params);
+    };
+  </script>
+</body>
+</html>
